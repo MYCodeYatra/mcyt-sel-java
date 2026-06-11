@@ -1,0 +1,22 @@
+package com.mycodeyatra.screenplay;
+
+import org.openqa.selenium.WebDriver;
+
+/**
+ * Ability that gives an Actor the power to interface with a web browser using WebDriver.
+ */
+public class BrowseTheWeb implements Ability {
+    private final WebDriver driver;
+
+    private BrowseTheWeb(WebDriver driver) {
+        this.driver = driver;
+    }
+
+    public static BrowseTheWeb with(WebDriver driver) {
+        return new BrowseTheWeb(driver);
+    }
+
+    public WebDriver getDriver() {
+        return driver;
+    }
+}
