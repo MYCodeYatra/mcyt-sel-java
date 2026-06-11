@@ -19,7 +19,7 @@ public class NavigateTask implements Performable {
     @Override
     public void performAs(Actor actor) {
         WebDriver driver = actor.usingAbilityTo(BrowseTheWeb.class).getDriver();
-        System.out.println("[NavigateTask] " + actor.getName() + " is navigating to: " + url);
+        System.out.println("NavigateTask: " + actor.getName() + " is navigating to: " + url);
         driver.get(url);
     }
 }

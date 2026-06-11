@@ -23,7 +23,7 @@ public class ProfileHeaderQuestion implements Question<String> {
         WebDriver driver = actor.usingAbilityTo(BrowseTheWeb.class).getDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         
-        System.out.println("[ProfileHeaderQuestion] " + actor.getName() + " is retrieving the profile welcome message...");
+        System.out.println("ProfileHeaderQuestion: " + actor.getName() + " is retrieving the profile welcome message...");
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h2[@data-testid='profile-title']"))).getText();
     }
 }

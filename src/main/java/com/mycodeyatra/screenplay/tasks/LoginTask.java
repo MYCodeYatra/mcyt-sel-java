@@ -28,7 +28,7 @@ public class LoginTask implements Performable {
         WebDriver driver = actor.usingAbilityTo(BrowseTheWeb.class).getDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-        System.out.println("[LoginTask] " + actor.getName() + " is entering login credentials...");
+        System.out.println("LoginTask: " + actor.getName() + " is entering login credentials...");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid='username']"))).clear();
         driver.findElement(By.xpath("//input[@data-testid='username']")).sendKeys(username);
 
