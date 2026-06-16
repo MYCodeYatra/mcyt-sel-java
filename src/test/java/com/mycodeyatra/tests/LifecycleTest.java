@@ -1,5 +1,4 @@
-﻿package com.mycodeyatra.tests;
-
+package com.mycodeyatra.tests;
 import com.mycodeyatra.driver.DriverFactory;
 import com.mycodeyatra.listeners.CustomTestListener;
 import com.mycodeyatra.listeners.RetryAnalyzer;
@@ -12,57 +11,40 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
-/**
- * LifecycleTest demonstrates the complete TestNG lifecycle:
- *   @BeforeClass -> @BeforeMethod -> @Test -> @AfterMethod -> @AfterClass
- *
- * The @Listeners annotation wires CustomTestListener so every lifecycle
- * event is intercepted and logged automatically.
- *
- * RetryAnalyzer on the flaky test shows how failed tests are auto-retried.
- */
 @Listeners(CustomTestListener.class)
 public class LifecycleTest {
-
-    private WebDriver driver;
-
-    @BeforeClass
-    public void suiteSetup() {
-        System.out.println("[Lifecycle] @BeforeClass  -> Suite-level setup (runs once per class)");
-    }
-
-    @BeforeMethod
-    @Parameters("browser")
-    public void setup(@Optional("chrome") String browser) {
-        System.out.println("[Lifecycle] @BeforeMethod -> Initialising " + browser + " browser...");
-        driver = DriverFactory.initDriver(browser);
-        driver.manage().window().maximize();
-    }
-
-    @Test(description = "Verify the practice site title loads correctly")
-    public void verifyPageTitle() {
-        System.out.println("[Lifecycle] @Test         -> verifyPageTitle running...");
-        driver.get("https://practice.mycodeyatra.com/");
-        String title = driver.getTitle();
-        System.out.println("[Lifecycle] Page Title: " + title);
-        Assert.assertFalse(title.isEmpty(), "Page title should not be empty");
-    }
-
-    @Test(description = "Simulate a flaky test with RetryAnalyzer",
-            retryAnalyzer = RetryAnalyzer.class)
-    public void simulateFlakyTest() {
-        System.out.println("[Lifecycle] @Test         -> simulateFlakyTest running...");
-        driver.get("https://practice.mycodeyatra.com/");
-        // Intentionally use a condition that always passes after retry is demonstrated
-        String url = driver.getCurrentUrl();
-        Assert.assertTrue(url.contains("practice.mycodeyatra.com"),
-                "URL should contain practice.mycodeyatra.com");
-    }
-
-    @AfterMethod
-    public void teardown() {
-        System.out.println("[Lifecycle] @AfterMethod  -> Closing browser session...");
-        DriverFactory.quitDriver();
-    }
+ private WebDriver driver;
+ @BeforeClass
+ public void suiteSetup() {
+  System.out.println("[Lifecycle] @BeforeClass  -> Suite-level setup (runs once per class)");
+ }
+ @BeforeMethod
+ @Parameters("browser")
+ public void setup(@Optional("chrome") String browser) {
+  System.out.println("[Lifecycle] @BeforeMethod -> Initialising " + browser + " browser...");
+  driver = DriverFactory.initDriver(browser);
+  driver.manage().window().maximize();
+ }
+ @Test(description = "Verify the practice site title loads correctly")
+ public void verifyPageTitle() {
+  System.out.println("[Lifecycle] @Test         -> verifyPageTitle running...");
+  driver.get("https://practice.mycodeyatra.com/");
+  String title = driver.getTitle();
+  System.out.println("[Lifecycle] Page Title: " + title);
+  Assert.assertFalse(title.isEmpty(), "Page title should not be empty");
+ }
+ @Test(description = "Simulate a flaky test with RetryAnalyzer",
+  retryAnalyzer = RetryAnalyzer.class)
+ public void simulateFlakyTest() {
+  System.out.println("[Lifecycle] @Test         -> simulateFlakyTest running...");
+  driver.get("https://practice.mycodeyatra.com/");
+  String url = driver.getCurrentUrl();
+  Assert.assertTrue(url.contains("practice.mycodeyatra.com"),
+   "URL should contain practice.mycodeyatra.com");
+ }
+ @AfterMethod
+ public void teardown() {
+  System.out.println("[Lifecycle] @AfterMethod  -> Closing browser session...");
+  DriverFactory.quitDriver();
+ }
 }
